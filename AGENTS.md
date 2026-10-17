@@ -7,3 +7,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Project conventions
+
+- Architecture is described in `docs/ARCHITECTURE.md`. Routes stay thin, and domain code lives in `features/<domain>/`.
+- Reuse `components/ui/*` and `lib/format.ts` instead of re-implementing badges, ratings, route labels or formatters.
+- Icons: Hugeicons, `strokeWidth={2}`. Draw routes with `RouteLabel`, never "→".
+- Run `pnpm typecheck` and `pnpm lint` before finishing a change.
