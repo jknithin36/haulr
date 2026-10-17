@@ -6,6 +6,7 @@ import {
   Plus_Jakarta_Sans,
 } from "next/font/google";
 import "./globals.css";
+import { ScreenSizeNotice } from "@/components/screen-size-notice";
 import { cn } from "@/lib/utils";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-sans" });
@@ -44,7 +45,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         jakarta.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <ScreenSizeNotice />
+      </body>
     </html>
   );
 }
