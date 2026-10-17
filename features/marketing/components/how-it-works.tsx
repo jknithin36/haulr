@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { LogoMark } from "@/components/ui/logo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Seal } from "@/features/marketing/components/seal";
@@ -105,43 +104,52 @@ export function HowItWorks() {
         </SectionHeader>
 
         {flows.map((flow) => (
-          <TabsContent key={flow.value} value={flow.value}>
-            <Card className="grid gap-0 bg-muted/50 py-0 ring-0 md:grid-cols-2">
-              <div className="flex flex-col gap-4 p-6 md:p-10">
-                <Seal {...flow.seal} className="w-32" />
-                <h3 className="mt-4 text-2xl font-semibold tracking-tight">
+          <TabsContent
+            key={flow.value}
+            value={flow.value}
+            className="duration-300 animate-in fade-in motion-reduce:animate-none"
+          >
+            <div className="grid gap-10 rounded-2xl bg-muted/50 p-6 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:gap-16 md:p-12">
+              <div className="flex flex-col items-start gap-4">
+                <Seal {...flow.seal} className="w-28 text-foreground" />
+                <h3 className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">
                   {flow.title}
                 </h3>
-                <p className="max-w-md text-base text-muted-foreground">
+                <p className="max-w-md text-pretty text-muted-foreground md:text-lg">
                   {flow.description}
                 </p>
                 <Link
                   href={flow.cta.href}
-                  className={cn(
-                    buttonVariants({ size: "lg" }),
-                    "mt-4 w-fit md:mt-auto",
-                  )}
+                  className={cn(buttonVariants({ size: "lg" }), "mt-4")}
                 >
                   {flow.cta.label}
                 </Link>
               </div>
 
-              <ol className="flex flex-col gap-8 px-6 pb-8 md:px-10 md:py-10">
+              <ol>
                 {flow.steps.map((step, i) => (
-                  <li key={step.title} className="flex gap-5">
-                    <span className="pt-0.5 text-sm text-muted-foreground tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
+                  <li
+                    key={step.title}
+                    className="group/step relative flex gap-5 pb-8 last:pb-0"
+                  >
+                    {/* Connector running down to the next step. */}
+                    <span
+                      aria-hidden
+                      className="absolute top-10 bottom-2 left-4 w-px -translate-x-1/2 bg-foreground/10 group-last/step:hidden"
+                    />
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-background text-sm font-medium tabular-nums shadow-xs">
+                      {i + 1}
                     </span>
-                    <div className="flex flex-col gap-1">
-                      <p className="text-base font-medium">{step.title}</p>
-                      <p className="text-muted-foreground">
+                    <div className="flex flex-col gap-1 pt-1">
+                      <p className="font-medium">{step.title}</p>
+                      <p className="text-pretty text-muted-foreground">
                         {step.description}
                       </p>
                     </div>
                   </li>
                 ))}
               </ol>
-            </Card>
+            </div>
           </TabsContent>
         ))}
       </Tabs>
